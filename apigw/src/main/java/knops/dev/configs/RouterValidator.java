@@ -14,7 +14,8 @@ public class RouterValidator {
 
     public static final List<String> openEndpoints = List.of(
             "/knops/auth/authenticate",
-            "/knops/auth/register"
+            "/knops/auth/register",
+            "/knops/auth/send-email"
     );
 
     public Predicate<ServerHttpRequest> isSecured =
