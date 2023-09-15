@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class VideoService {
@@ -49,9 +50,10 @@ public class VideoService {
             return ResponseEntity.notFound().build();
         }
     }
-    public List<Video> getAllVideos() {
-        return videoRepository.findAll();
+    public List<VideoProjection> getAllVideos() {
+        return videoRepository.findAllBy();
     }
+
 
 
     public boolean updateVideo(Long id, String newName,String newDescription, MultipartFile newFile) throws IOException {

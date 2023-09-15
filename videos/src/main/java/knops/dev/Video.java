@@ -1,5 +1,6 @@
 package knops.dev;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +31,12 @@ public class Video {
         this.data = data;
     }
 
-    // Getters and setters
+    public Video(Long id, String name, String description, String contentType) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.contentType = contentType;
+    }
+// Getters and setters
 }
 

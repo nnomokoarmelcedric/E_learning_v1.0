@@ -1,5 +1,6 @@
 package knops.dev;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import lombok.extern.slf4j.Slf4j;
 //import org.hibernate.mapping.List;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+
 
 @Slf4j
 @RestController
@@ -40,8 +42,9 @@ public class VideoController {
     }
 
     @GetMapping
-    public ResponseEntity< List<Video> > getAllVideos() {
-        List <Video> videos = videoService.getAllVideos();
+    public ResponseEntity<List<VideoProjection>> getAllVideos() {
+        List<VideoProjection> videos = videoService.getAllVideos();
+//        List<VideoMetadata> videoMetadataList = videoService.convertToMetadata(videos);
         return ResponseEntity.ok(videos);
     }
 
