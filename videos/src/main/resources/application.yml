@@ -25,3 +25,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+app:
+  streaming:
+    default-chunk-size: 3145728 #value in bytes

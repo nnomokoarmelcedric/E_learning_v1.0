@@ -24,6 +24,14 @@ public class Video {
     @Lob
     private byte[] data;
 
+    public long getSize() {
+        if (data != null) {
+            return data.length;
+        } else {
+            return 0; // Aucune donnée, taille nulle
+        }
+    }
+
     public Video(String name, String description, String contentType, byte[] data) {
         this.name = name;
         this.description = description;

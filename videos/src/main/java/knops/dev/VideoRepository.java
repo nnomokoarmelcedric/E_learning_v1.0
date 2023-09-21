@@ -10,5 +10,10 @@ import java.util.Optional;
 public interface VideoRepository extends JpaRepository<Video, Long> {
 
     List<VideoProjection> findAllBy(); // Utilisez la projection i
+
     Optional<Video> findByName(String name);
+      Optional<VideoProjection> findProjectionById(long id);
+ Optional<Video> findById(long id);
+
+
 }
