@@ -10,8 +10,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,17 +31,33 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
+                .isValid(request.isValid())
                 .build();
         repository.save(user);
         // Créer des claims supplémentaires
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("role", user.getRole());
         extraClaims.put("email", user.getEmail());
+        extraClaims.put("isValid",true);
         System.out.println("Claims supplémentaires : " + extraClaims);
         var jwtToken = jwtService.generateToken(extraClaims,user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+    }
+    public boolean updateUser(Integer id, String email,Role role,boolean status) throws IOException {
+        Optional<User> userOptional = repository.findById(id);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setEmail(email);
+            user.setRole(role);
+            user.setValid(status);
+            repository.save(user);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -53,12 +72,24 @@ public class AuthenticationService {
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("role", user.getRole());
         extraClaims.put("email", user.getEmail());
+        extraClaims.put("isValid",user.isValid());
         System.out.println("Claims supplémentaires : " + extraClaims);
         var jwtToken = jwtService.generateToken(extraClaims,user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
     }
-
+    public List<User> getAllUsers() {
+        return repository.findAllBy();
+    }
+    public boolean deleteUserById(Integer id) {
+        Optional<User> userOptional = repository.findById(id);
+        if (userOptional.isPresent()) {
+            repository.delete(userOptional.get());
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

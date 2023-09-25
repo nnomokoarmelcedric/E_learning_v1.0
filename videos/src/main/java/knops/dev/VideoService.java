@@ -56,71 +56,31 @@ public class VideoService {
 
     @Autowired
     private DataBufferFactory dataBufferFactory; // Injectez la factory DataBuffer
-//
-//    public ResponseEntity<Flux<DataBuffer>> streamVideo(Long id) {
-//        Optional<Video> videoOptional = videoRepository.findById(id);
-//        if (videoOptional.isPresent()) {
-//            Video video = videoOptional.get();
-//            byte[] videoData = video.getData();
-//
-//            // Ici, vous devrez mettre en œuvre la logique de segmentation de la vidéo en chunks
-//            // en utilisant dataBufferFactory pour créer des DataBuffer
-//
-//            Flux<DataBuffer> videoDataStream = Flux.fromStream(() -> {
-//                // Ici, vous devrez itérer sur les chunks de la vidéo et les émettre en tant que DataBuffer
-//                // Utilisez dataBufferFactory pour créer des DataBuffer à partir de chaque chunk
-//            });
-//
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setContentType(MediaType.valueOf(video.getContentType()));
-//
-//            return new ResponseEntity<>(videoDataStream, headers, HttpStatus.OK);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+
 public Optional<Video> getVideoById(Long id) {
     return videoRepository.findById(id);
 }
-//    public ResponseEntity<byte[]> getVideo(Long id) {
-//        Optional<Video> videoOptional = videoRepository.findById(id);
-//        if (videoOptional.isPresent()) {
-//            Video video = videoOptional.get();
-//            return ResponseEntity.ok()
-//                    .contentType(MediaType.parseMediaType(video.getContentType()))
-//                    .body(video.getData());
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+
     public List<VideoProjection> getAllVideos() {
         return videoRepository.findAllBy();
     }
 
 
 
-    public boolean updateVideo(Long id, String newName,String newDescription, MultipartFile newFile) throws IOException {
+    public boolean updateVideo(Long id, String newName,String newDescription) throws IOException {
         Optional<Video> videoOptional = videoRepository.findById(id);
 
         if (videoOptional.isPresent()) {
             Video video = videoOptional.get();
             video.setName(newName);
             video.setDescription(newDescription);
-            video.setContentType(newFile.getContentType());
-            video.setData(newFile.getBytes());
             videoRepository.save(video);
             return true;
         } else {
             return false;
         }
     }
-//    public Flux<DataBuffer> streamVideo(long id) {
-//        // Récupérez la vidéo depuis le repository par son ID
-//        Video video = videoRepository.findById(id).orElseThrow(() -> new NotFoundException("Video not found"));
-//
-//        // Convertissez les données de la vidéo en flux de DataBuffer
-//        return Flux.just(dataBufferFactory.wrap(video.getData()));
-//    }
+
 
 public ChunkWithMetadata fetchChunk(long id, Range range) throws IOException {
     Optional <Video> video = Optional.of(videoRepository.findById(id).orElseThrow());

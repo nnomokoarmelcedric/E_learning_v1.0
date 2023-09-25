@@ -46,66 +46,6 @@ public class VideoController {
         }
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<byte[]> getVideo(@PathVariable Long id) {
-//        byte[] videoData = videoService.getVideo(id).getBody(); // Remplacez par la méthode réelle pour obtenir les données de la vidéo
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.valueOf("video/mp4")); // Remplacez par le type de contenu approprié
-//
-//        // Convertir les données binaires en URL
-//        String base64Video = Base64.getEncoder().encodeToString(videoData);
-//        String videoUrl = "data:video/mp4;base64," + base64Video; // Remplacez le type de contenu par celui approprié
-//
-//        // Retourner l'URL dans la réponse
-//        return ResponseEntity.ok()
-//                .headers(headers)
-//                .body(videoUrl.getBytes());
-//    }
-//@GetMapping("/{id}")
-//public ResponseEntity<Resource> streamVideo(@PathVariable Long id) {
-//    Optional<Video> videoOptional = videoService.getVideoById(id);
-//
-//    if (videoOptional.isPresent()) {
-//        Video video = videoOptional.get();
-//        Resource videoResource = new FileSystemResource(video.getVideoPath());
-//
-//        return ResponseEntity.ok()
-//                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-//                .body(videoResource);
-//    } else {
-//        return ResponseEntity.notFound().build();
-//    }
-//}
-
-//    @GetMapping("/{id}")
-//    public ResponseEntity<InputStreamResource> retrieveResource(@PathVariable long id) throws Exception{
-//        Optional<Video> videoOptional = videoRepository.findById(id);
-//
-//        if (!videoOptional.isPresent()) {
-//            return ResponseEntity.notFound().build();
-//        }
-//
-//        Video video = videoOptional.get();
-//        byte[] videoData = video.getData(); // Assurez-vous que votre entité Video a une méthode pour obtenir les données de la vidéo
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.set("Accept-Ranges","bytes");
-//        headers.set("Content-Type","video/mp4");
-//        headers.set("Content-Range","bytes 50-1025/17839845");
-//        headers.set("Content-Length",String.valueOf(videoData.length));
-//        return new ResponseEntity<>(new InputStreamResource(new ByteArrayInputStream(videoData)),headers,HttpStatus.OK);
-//    }
-//@GetMapping(value = "/videos/{id}",consumes = MediaType.ALL_VALUE,produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-//public ResponseEntity<Flux<DataBuffer>> streamVideo(@PathVariable long id) {
-//    Flux<DataBuffer> videoStream = videoService.streamVideo(id);
-//
-//    return (ResponseEntity<Flux<DataBuffer>>) ResponseEntity.ok()
-//            .header("Content-Disposition", "inline")
-//            .header("Accept-Ranges","bytes")
-//            .header("Content-Type","video/mp4")
-//            .header("Content-Range","bytes 50-1025/17839845")
-//            .body(videoStream);
-//}
 
 
 
@@ -130,12 +70,11 @@ public class VideoController {
     public ResponseEntity<String> updateVideo(
             @PathVariable Long id,
             @RequestParam("name") String newName,
-            @RequestParam("file") MultipartFile newFile,
             @RequestParam("description") String newDescription
 
     ) {
         try {
-            boolean updated = videoService.updateVideo(id, newName,newDescription, newFile);
+            boolean updated = videoService.updateVideo(id, newName,newDescription);
 
             if (updated) {
                 return ResponseEntity.ok("Video updated successfully!");
