@@ -1,9 +1,6 @@
 package knops.dev;
 
-import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
 
 import org.springframework.stereotype.Service;
@@ -49,7 +46,7 @@ public class VideoService {
     }
 
     @Autowired
-    private DataBufferFactory dataBufferFactory; // Injectez la factory DataBuffer
+    private DataBufferFactory dataBufferFactory;
 
 public Optional<Video> getVideoById(Long id) {
     return videoRepository.findById(id);
@@ -92,7 +89,7 @@ public ChunkWithMetadata fetchChunk(long id, Range range) throws IOException {
             return inputStream.readAllBytes();
         } catch (IOException ioException) {
             System.out.println("an error occured");
-            throw ioException; // Vous pouvez décider de la gérer ici ou la relancer
+            throw ioException;
         }
     }
     public record ChunkWithMetadata(long id,

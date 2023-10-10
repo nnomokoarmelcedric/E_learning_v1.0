@@ -1,6 +1,5 @@
 package knops.dev;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +27,7 @@ public class Video {
         if (data != null) {
             return data.length;
         } else {
-            return 0; // Aucune donnée, taille nulle
+            return 0;
         }
     }
 
@@ -45,6 +44,5 @@ public class Video {
         this.description = description;
         this.contentType = contentType;
     }
-// Getters and setters
 }
 

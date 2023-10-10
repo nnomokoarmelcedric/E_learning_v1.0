@@ -16,7 +16,6 @@ import java.util.Collections;
 
 
 @Configuration
-//@EnableHystrix
 public class GatewayConfig {
     @Autowired
     private AuthenticationFilter filter;

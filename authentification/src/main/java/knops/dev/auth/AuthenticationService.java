@@ -34,7 +34,6 @@ public class AuthenticationService {
                 .isValid(request.isValid())
                 .build();
         repository.save(user);
-        // Créer des claims supplémentaires
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("role", user.getRole());
         extraClaims.put("email", user.getEmail());

@@ -1,21 +1,17 @@
 package knops.dev;
 
-import io.netty.handler.codec.http.HttpConstants;
 import lombok.extern.slf4j.Slf4j;
-//import org.hibernate.mapping.List;
 import java.io.*;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import static org.springframework.http.HttpHeaders.ACCEPT_RANGES;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
 import static org.springframework.http.HttpHeaders.*;
 
 @Slf4j
@@ -27,7 +23,6 @@ public class VideoController {
     @Autowired
     private VideoRepository videoRepository;
 
-//    @Value("${photon.streaming.default-chunk-size}")
     public Integer defaultChunkSize = 3145728;
 
     @PostMapping("/upload")
