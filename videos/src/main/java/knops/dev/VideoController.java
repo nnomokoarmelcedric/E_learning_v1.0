@@ -23,7 +23,7 @@ import static org.springframework.http.HttpHeaders.*;
 @RequestMapping("/videos")
 public class VideoController {
     @Autowired
-    private VideoService videoService;
+    VideoService videoService;
     @Autowired
     private VideoRepository videoRepository;
 
