@@ -1,0 +1,31 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: Videos
+  datasource:
+    password: password
+    url: jdbc:postgresql://postgres:5432/videos
+    username: knops
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  # Augmenter la limite de taille des fichiers téléchargés à 3 Go
+
+  servlet:
+    multipart:
+      max-file-size: 3GB
+      max-request-size: 3GB
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+
+app:
+  streaming:
+    default-chunk-size: 3145728 #value in bytes
