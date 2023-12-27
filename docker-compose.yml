@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: password
       PGDATA: /data/postgres
     volumes:
-      - postgres-E:/data/postgres-E
+      - postgres-E:/data/postgres
     ports:
       - "4300:5432"
     networks:
@@ -28,7 +28,8 @@ services:
       - postgres-E
     restart: unless-stopped
   eureka-server:
-    image: armelnnomoko/eureka-server:latest
+    build:
+      context: ./eureka-server
     container_name: eureka-server
     ports:
       - "8761:8761"
@@ -37,7 +38,8 @@ services:
     networks:
       - spring
   apigw:
-      image: armelnnomoko/apigw:latest
+      build: 
+        context: ./apigw
       container_name: apigw
       ports:
         - "8085:8085"
@@ -50,7 +52,8 @@ services:
         - videos
 
   videos:
-      image: armelnnomoko/videos:latest
+      build:
+        context: ./videos
       container_name: videos
       ports:
         - "8082:8082"
@@ -65,7 +68,8 @@ services:
         - authentification
 
   authentification:
-      image: armelnnomoko/authentification:latest
+      build:
+        context: ./authentification
       container_name: authentification
       ports:
         - "8081:8081"
@@ -77,7 +81,24 @@ services:
       depends_on:
         - eureka-server
         - postgres
-
+  
+  react:
+    build:
+      context: ./frontend
+    container_name: react
+    ports:
+      - "4000:3000"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - postgres-E
+    depends_on:
+      - eureka-server
+      - postgres
+      - authentification
+      - apigw
+      - videos
 networks:
   postgres-E:
     driver: bridge

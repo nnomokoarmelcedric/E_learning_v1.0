@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('./static/Outfit-SemiBold.ttf') format('truetype');
+  /* Autres formats possibles, tels que woff, woff2 */
+}
+
+body {
+  font-family: 'MyCustomFont', sans-serif;
+  
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.footer {
+ bottom: 0;
+ border-top: 2px ;
+ position: fixed;
+}
+.fl{
+  padding: 0;
+}
+
+.hover-effect:hover {
+  background-color: #67bbf0; /* Changez la couleur comme vous le souhaitez */
+  color: blue; /* Changez la couleur du texte pour un bon contraste */
+}
+
+.welcome-user{
+  margin-right:25px;
+}
+.zoom{
+  margin: 1;
+  margin-top: 22px;
+}
+
+.bg {
+  background-image: url("./static/bg.jpg");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.courses-heading{
+  margin-top: 100px;;
+}
+.management-header{
+  margin-top: 11vh;
+  margin-left: 1vh;
+}
+.play:hover{
+  color: aqua;
+}
+.options{
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+
+}
+
